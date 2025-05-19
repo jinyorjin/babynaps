@@ -11,7 +11,8 @@ function App() {
       <div className="app">
         <h1>🍼 BabyNaps</h1>
         <nav>
-          <Link to="/">수면 기록</Link> | <Link to="/history">수면 내역</Link>
+          <Link to="/">Sleep track</Link> |{" "}
+          <Link to="/history">Sleep record</Link>
         </nav>
         <Routes>
           <Route path="/" element={<SleepTracker />} />

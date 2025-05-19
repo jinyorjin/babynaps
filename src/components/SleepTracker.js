@@ -4,8 +4,9 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 function SleepTracker() {
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const now = new Date().toISOString().slice(0, 16); // current datetime in input format
+  const [start, setStart] = useState(now);
+  const [end, setEnd] = useState(now);
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -13,10 +14,10 @@ function SleepTracker() {
 
     const startTime = new Date(start);
     const endTime = new Date(end);
-    const duration = (endTime - startTime) / (1000 * 60 * 60); // 시간 단위
+    const duration = (endTime - startTime) / (1000 * 60 * 60); // in hours
 
     if (isNaN(duration) || duration <= 0) {
-      setMessage("시간 설정이 올바르지 않아요 😢");
+      setMessage("❌ Invalid time range.");
       return;
     }
 
@@ -27,36 +28,38 @@ function SleepTracker() {
         duration: duration.toFixed(2),
         created: Timestamp.now(),
       });
-      setMessage(`🍼 ${duration.toFixed(2)}시간 잘 잤어요!`);
-      setStart("");
-      setEnd("");
+      setMessage(`✅ Saved: Slept ${duration.toFixed(2)} hours`);
+      setStart(now);
+      setEnd(now);
     } catch (err) {
       console.error(err);
-      setMessage("오류가 발생했어요. 다시 시도해주세요.");
+      setMessage("Error saving record.");
     }
   };
 
   return (
     <div className="container">
-      <h2>수면 기록하기</h2>
+      <h2>📝 Record Sleep</h2>
       <form onSubmit={handleSubmit}>
-        <label>시작 시간:</label>
+        <label>Start Time</label>
         <input
           type="datetime-local"
           value={start}
           onChange={(e) => setStart(e.target.value)}
           required
         />
-        <label>종료 시간:</label>
+
+        <label>End Time</label>
         <input
           type="datetime-local"
           value={end}
           onChange={(e) => setEnd(e.target.value)}
           required
         />
-        <button type="submit">기록 저장</button>
+
+        <button type="submit">Save Record</button>
       </form>
-      <p>{message}</p>
+      <p className="message">{message}</p>
     </div>
   );
 }

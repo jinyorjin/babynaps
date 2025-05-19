@@ -1,7 +1,7 @@
 /* src/styles/app.css */
 body {
   font-family: "Segoe UI", sans-serif;
-  background: #f8f9fa;
+  background: #f2f4f7;
   margin: 0;
   padding: 0;
 }
@@ -15,37 +15,59 @@ nav {
   margin-bottom: 2rem;
 }
 
-a {
-  color: #007bff;
-  text-decoration: none;
+nav a {
+  margin: 0 1rem;
   font-weight: bold;
+  text-decoration: none;
+  color: #007bff;
 }
 
 .container {
-  max-width: 400px;
-  margin: auto;
   background: white;
+  max-width: 500px;
+  margin: auto;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 input,
 button {
   width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0 1rem;
   font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 button {
-  background: #28a745;
+  background-color: #4caf50;
   color: white;
-  border: none;
-  border-radius: 0.5rem;
   cursor: pointer;
 }
 
 button:hover {
-  background: #218838;
+  background-color: #45a049;
+}
+
+button.delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+button.delete:hover {
+  background-color: #c0392b;
+}
+
+.record-list {
+  list-style: none;
+  padding: 0;
+}
+
+.message {
+  color: #333;
+  font-weight: 500;
 }
