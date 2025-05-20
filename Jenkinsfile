@@ -11,13 +11,20 @@ pipeline {
       }
     }
 
-stage('Test') {
-  steps {
-    echo '🧪 Running tests...'
-    bat 'npm test -- App.test.js --watchAll=false --passWithNoTests'
-  }
-}
+    stage('Test') {
+      steps {
+        echo '🧪 Running tests...'
+        bat 'npm test -- App.test.js --watchAll=false --passWithNoTests'
+      }
+    }
 
+    stage('Code Quality - SonarQube') {
+      steps {
+        withSonarQubeEnv('LocalSonar') {
+          bat 'sonar-scanner'
+        }
+      }
+    }
 
     stage('Deploy') {
       steps {
