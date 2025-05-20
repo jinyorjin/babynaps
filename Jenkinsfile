@@ -21,7 +21,8 @@ pipeline {
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('LocalSonar') {
-          bat 'sonar-scanner'
+          // sonar-scanner 절대 경로 사용
+          bat '"C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"'
         }
       }
     }
