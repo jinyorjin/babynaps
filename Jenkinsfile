@@ -22,7 +22,8 @@ pipeline {
       steps {
         withSonarQubeEnv('LocalSonar') {
           withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-            bat 'set SONAR_TOKEN=%SONAR_TOKEN% && "C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"'
+            bat 'set SONAR_TOKEN=%SONAR_TOKEN%'
+            bat '"C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"'
           }
         }
       }
@@ -56,18 +57,17 @@ pipeline {
     stage('Release') {
       steps {
         echo '🏷 Creating Git release tag...'
-        bat '''
-          git config user.email "jenkins@example.com"
-          git config user.name "Jenkins CI"
-          git tag -a v1.0.%BUILD_NUMBER% -m "Release v1.0.%BUILD_NUMBER%"
-          git push origin v1.0.%BUILD_NUMBER%
-        '''
+        bat 'git config user.email "jenkins@example.com"'
+        bat 'git config user.name "Jenkins CI"'
+        bat 'git tag -a v1.0.%BUILD_NUMBER% -m "Release v1.0.%BUILD_NUMBER%"'
+        bat 'git push origin v1.0.%BUILD_NUMBER%'
       }
     }
 
     stage('Monitoring') {
       steps {
         echo '📊 Monitoring placeholder'
+        echo 'You can integrate tools like Lighthouse, New Relic, or Datadog here.'
       }
     }
   }
