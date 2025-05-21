@@ -22,7 +22,14 @@ pipeline {
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('LocalSonar') {
-          bat '"C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"'
+          withCredentials([
+            string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')
+          ]) {
+            bat """
+              set SONAR_TOKEN=%SONAR_TOKEN%
+              "C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"
+            """
+          }
         }
       }
     }
