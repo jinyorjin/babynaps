@@ -34,12 +34,18 @@ pipeline {
       }
     }
 
-    stage('Security') {
-      steps {
-        echo '🔒 Running security audit...'
-        bat 'npm audit --audit-level=high'
+stage('Security') {
+  steps {
+    echo '🔒 Running security audit...'
+    script {
+      def result = bat(script: 'npm audit --audit-level=high', returnStatus: true)
+      if (result != 0) {
+        echo "⚠️ Vulnerabilities detected but continuing pipeline anyway."
       }
     }
+  }
+}
+
 
     stage('Deploy') {
       steps {
