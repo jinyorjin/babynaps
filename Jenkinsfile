@@ -2,6 +2,7 @@ pipeline {
   agent any
 
   stages {
+
     stage('Build') {
       steps {
         echo '📦 Installing dependencies...'
@@ -21,15 +22,48 @@ pipeline {
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('LocalSonar') {
-          // sonar-scanner 절대 경로 사용
           bat '"C:\\Users\\lqye9\\Downloads\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner.bat"'
         }
       }
     }
 
+    stage('Security') {
+      steps {
+        echo '🔒 Running security audit...'
+        bat 'npm audit --audit-level=high'
+      }
+    }
+
     stage('Deploy') {
       steps {
-        echo '🚀 Deploy step (Netlify CLI or Docker can go here)'
+        echo '🚀 Deploying to Netlify...'
+        withCredentials([
+          string(credentialsId: 'NETLIFY_SITE_ID', variable: 'SITE_ID'),
+          string(credentialsId: 'NETLIFY_AUTH_TOKEN', variable: 'AUTH_TOKEN')
+        ]) {
+          bat """
+            netlify deploy --dir=build --prod --auth=%AUTH_TOKEN% --site=%SITE_ID%
+          """
+        }
+      }
+    }
+
+    stage('Release') {
+      steps {
+        echo '🏷 Creating Git release tag...'
+        bat """
+          git config user.email "jenkins@example.com"
+          git config user.name "Jenkins CI"
+          git tag -a v1.0.%BUILD_NUMBER% -m "Release v1.0.%BUILD_NUMBER%"
+          git push origin v1.0.%BUILD_NUMBER%
+        """
+      }
+    }
+
+    stage('Monitoring') {
+      steps {
+        echo '📊 (Optional) Monitoring step - placeholder only'
+        echo 'You can integrate Lighthouse CI or Netlify monitoring tools here.'
       }
     }
   }
