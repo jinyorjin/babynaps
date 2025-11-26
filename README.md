@@ -1,37 +1,60 @@
 ![image](https://github.com/user-attachments/assets/57cb5afa-50fe-4e25-af96-c88b1a724587)
+## Jenkins – Build History  
+<img src="./pipeline1.png" width="600">
 
-# BabyNaps - Baby Sleep Tracker
+## Jenkins – Git Release Tagging  
+<img src="./pipeline2.png" width="600">
 
-BabyNaps is a simple and intuitive baby sleep tracking app built with React and Firebase. It helps parents log and visualize their baby’s sleep times easily, supporting multiple devices and family members.
+## SonarQube – Code Quality  
+<img src="./sonar.png" width="600">
+
+# BabyNaps – Baby Sleep Tracker
+
+BabyNaps is a simple web app that helps parents keep track of their baby’s sleep times. It’s built with React, and uses Firebase to store data and sync it across devices in real time.
 
 ## Features
 
-- Track baby’s sleep sessions (start, end time)
-- View sleep history with timestamps
-- Lightweight and responsive UI
-- Firebase Firestore integration for real-time updates
-- Firebase Authentication (optional)
-- Hosted on Netlify
+- Record sleep and wake times
+- View sleep history
+- Lightweight, mobile-friendly UI
+- Real-time syncing via Firestore
+- Optional Firebase Authentication
+- Deployed on Netlify
 
 ## Tech Stack
 
-- React (Frontend)
-- Firebase (Backend)
-  - Firestore for data storage
-  - Firebase Hosting (optional)
-- Netlify (for deployment)
+- React
+- Firebase Firestore
+- Firebase Auth (optional)
+- Netlify
 
-## Getting Started
+## DevOps & Automation
 
-### Prerequisites
+I used this project to explore practical CI/CD workflows.  
+The Jenkins pipeline currently includes:
 
-- Node.js and npm installed
-- Firebase project created
+- Build
+- Basic test execution
+- Code quality scan (SonarQube)
+- Dependency security checks (`npm audit`)
+- Deployment via Netlify CLI
+- Automatic Git release tagging
 
-### Installation
+Whenever I push changes, the pipeline runs these checks and updates the live site.
 
-1. Clone the repository
+### CI/CD Release Versioning
+
+Each successful build generates a release tag such as:
+
+This helps maintain a clear release history and makes it easier to track and troubleshoot builds.
+
+## Demo Video (Assessment submission)
+https://deakin.au.panopto.com/Panopto/Pages/Viewer.aspx?id=c217c2e8-b244-4140-9661-b2e4006917b9
+
+## Running Locally
 
 ```bash
 git clone https://github.com/jinyorjin/babynaps.git
 cd babynaps
+npm install
+npm start
