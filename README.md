@@ -1,12 +1,13 @@
 ![image](https://github.com/user-attachments/assets/57cb5afa-50fe-4e25-af96-c88b1a724587)
 ## Jenkins – Build History  
-<img src="./pipeline1.png" width="600">
+<img src="./pipeline1.png" width="600"/>
 
 ## Jenkins – Git Release Tagging  
-<img src="./pipeline2.png" width="600">
+<img src="./pipeline2.png" width="600"/>
 
 ## SonarQube – Code Quality  
-<img src="./sonar.png" width="600">
+<img src="./sonar.png" width="600"/>
+
 
 # BabyNaps – Baby Sleep Tracker
 
